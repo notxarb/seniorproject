@@ -1,24 +1,95 @@
 <html>
   <head>
     <title>Braxton's Senior Project - Design Documents</title>
+    <script type="text/javascript" src="/js/navagation.js"></script>
   </head>
   <body>
     <h1>Requirements</h1>
     <table>
-      <tr><th>ID</th><th>Functional Requirement</th><th>Demonstration Scenario</th><th>Success</th></tr>
-      <tr><td>1</td><td>Shall create 3d surface from implicit functions </td><td>Shall include several (at least 5) implicit functions to test. Comparison can be made with Google, Wolfram Alpha, or possibly others.</td><td>80%</td></tr>
-      <tr><td>2</td><td>Shall create 3d surface from parametric functions</td><td>Shall include several (at least 5) parametric functions to test.</td><td>80%</td></tr>
-      <tr><td>3</td><td>Shall identify asymptotes and split surfaces as appropriate</td><td>Shall include several (at least 5) functions with asymptotes.</td><td>80%</td></tr>
-      <tr><td>4</td><td>Shall have ambient lighting</td><td>Everything at least a little bit visible.</td><td>80%</td></tr>
-      <tr><td>5</td><td>Shall have directional lighting</td><td>Lighting from a point, illuminating graph, should see things like shadows, variances in illumination according to angle of intersection.</td><td>80%</td></tr>
-      <tr><td>6</td><td>Will allow user to input equations</td><td>Graph will display according to user inputted data, not just test cases.</td><td>80%</td></tr>
-      <tr><td>7</td><td>Shall allow user to rotate graph</td><td>User input will allow graph to be rotated, visually observed.</td><td>80%</td></tr>
-      <tr><td>8</td><td>Will allow user to set graphing bounds</td><td>Will truncate graph when values exceed defined bounds (x, y, z)</td><td>80%</td></tr>
-      <tr><td>9</td><td>Will create a transform matrix according to rotation</td><td>Will visibly rotate graph.</td><td>80%</td></tr>
-      <tr><td>10</td><td>Will allow user to alter zoom of graph</td><td>View will get closer or farther away</td><td>80%</td></tr>
-      <tr><td>11</td><td>Will allow user to set color for graph</td><td>Graph will be colored according to selected color.</td><td>80%</td></tr>
-      <tr><td>12</td><td>Will allow multiple equations on the same canvas</td><td>Multiple independent surfaces will be displayed, possibly intersecting.</td><td>80%</td></tr>
-      <tr><td>13</td><td>Will show calculated data points on graph</td><td>Values will be displayed on the graph.</td><td>80%</td></tr>
+      <tr>
+        <th>ID</th>
+        <th>Functional Requirement</th>
+        <th>Demonstration Scenario</th>
+        <th>Success</th>
+      </tr>
+      <tr class="shall" onclick="NavagateTo('/design/1.html');">
+        <td>1</td>
+        <td>Shall create 3d surface from implicit functions.</td>
+        <td>Shall include several (at least 5) implicit functions to test. Comparison can be made with Google, Wolfram Alpha, or possibly others.</td>
+        <td>80%</td>
+      </tr>
+      <tr class="shall" onclick="NavagateTo('/design/2.html');">
+        <td>2</td>
+        <td>Shall create 3d surface from parametric functions.</td>
+        <td>Shall include several (at least 5) parametric functions to test.</td>
+        <td>80%</td>
+      </tr>
+      <tr class="shall" onclick="NavagateTo('/design/3.html');">
+        <td>3</td>
+        <td>Shall identify asymptotes and split surfaces as appropriate.</td>
+        <td>Shall include several (at least 5) functions with asymptotes.</td>
+        <td>80%</td>
+      </tr>
+      <tr class="shall" onclick="NavagateTo('/design/4.html');">
+        <td>4</td>
+        <td>Shall have ambient lighting</td>
+        <td>Everything at least a little bit visible.</td>
+        <td>80%</td>
+      </tr>
+      <tr class="shall" onclick="NavagateTo('/design/5.html');">
+        <td>5</td>
+        <td>Shall have directional lighting</td>
+        <td>Lighting from a point, illuminating graph, should see things like shadows, variances in illumination according to angle of intersection.</td>
+        <td>80%</td>
+      </tr>
+      <tr class="will" onclick="NavagateTo('/design/6.html');">
+        <td>6</td>
+        <td>Will allow user to input equations</td>
+        <td>Graph will display according to user inputted data, not just test cases.</td>
+        <td>80%</td>
+      </tr>
+      <tr class="shall" onclick="NavagateTo('/design/7.html');">
+        <td>7</td>
+        <td>Shall allow user to rotate graph</td>
+        <td>User input will allow graph to be rotated, visually observed.</td>
+        <td>80%</td>
+      </tr>
+      <tr class="will" onclick="NavagateTo('/design/8.html');">
+        <td>8</td>
+        <td>Will allow user to set graphing bounds</td>
+        <td>Will truncate graph when values exceed defined bounds (x, y, z)</td>
+        <td>80%</td>
+      </tr>
+      <tr class="will" onclick="NavagateTo('/design/9.html');">
+        <td>9</td>
+        <td>Will create a transform matrix according to rotation</td>
+        <td>Will visibly rotate graph.</td>
+        <td>80%</td>
+      </tr>
+      <tr class="will" onclick="NavagateTo('/design/10.html');">
+        <td>10</td>
+        <td>Will allow user to alter zoom of graph</td>
+        <td>View will get closer or farther away</td>
+        <td>80%</td>
+      </tr>
+      <tr class="will" onclick="NavagateTo('/design/11.html');">
+        <td>11</td>
+        <td>Will allow user to set color for graph</td>
+        <td>Graph will be colored according to selected color.</td>
+        <td>80%</td>
+      </tr>
+      <tr class="will" onclick="NavagateTo('/design/12.html');">
+        <td>12</td>
+        <td>Will allow multiple equations on the same canvas</td>
+        <td>Multiple independent surfaces will be displayed, possibly intersecting.</td>
+        <td>80%</td>
+      </tr>
+      <tr class="will" onclick="NavagateTo('/design/13.html');">
+        <td>13</td>
+        <td>Will show calculated data points on graph</td>
+        <td>Values will be displayed on the graph.</td>
+        <td>80%</td>
+      </tr>
     </table>
   </body>
 </html>

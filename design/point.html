@@ -14,6 +14,12 @@
       A surface is comprised of 3 or more points.
       Point generation for an implicit function will generate values by iterating across the range of x values. For each x, it will iterate across the range of y values. For each x, y pair, it will generate values for z using the supplied function.
       Point generation for parametric equations will generate values by iterating across the range of u values. For each u, it will iterate across the range of v values. For each u, v pair, it will generate values for x, y, and z using the supplied functions.
+      A point will need the following attributes:
+      <ul>
+        <li>Coordinates - x, y, z</li>
+        <li>Relations - how to move between points, left, right, forward, backward, what surface it belongs to.</li>
+        <li>Color - points need color, unless surface has a uniform color, then the property can be on the surface.</li>
+      </ul>
     </p>
   </body>
 </html>

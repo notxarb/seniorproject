@@ -11,6 +11,29 @@
     </p>
     <h2>Descriptions:</h2>
     <p>
+      This will take input from the settings panel and generate a matrix for WebGL to use for rotation of the graph.
+      <a href="http://en.wikipedia.org/wiki/Rotation_matrix#General_rotations">general rotations</a> yaw, pitch and roll.
+      May be fun to see this matrix.
+    </p>
+    <p>
+      This will need to have the following functions:
+      <ul>
+        <li>
+          Multiply Matrix - This function is used to combine the rotations and transposing operations.
+        </li>
+        <li>
+          Rotate - This needs to be able to take x, y, and z rotations and multiply them together.
+        </li>
+        <li>
+          Translate - This needs to be able to take x, y, and z and make linear translations.
+        </li>
+        <li>
+          Create Transformation Matrix - This needs to take the rotations and translations and multiply them together to generate the final one.
+        </li>
+        <li>
+          To GL Matrix - WebGL wants the values in a 1 dimensional array, read down the column.
+        </li>
+      </ul>
     </p>
   </body>
 </html>

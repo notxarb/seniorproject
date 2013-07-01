@@ -1,0 +1,311 @@
+<html>
+  <head>
+    <title>Braxton's Senior Project - Design Documents</title>
+    <link rel="stylesheet" type="text/css" href="../css/all.css">
+    <script type="text/javascript" src="../js/navagation.js"></script>
+    <script type="text/javascript" src="../js/transformation_matrix.js"></script>
+    <script type="text/javascript" src="../js/perspective_matrix.js"></script>
+    <script type="text/javascript" src="../js/main.js"></script>
+
+    <script id="shader-fs" type="x-shader/x-fragment">
+        precision mediump float;
+
+        varying vec4 vColor;
+
+        void main(void) {
+          gl_FragColor = vColor;
+        }
+    </script>
+
+    <script id="shader-vs" type="x-shader/x-vertex">
+      attribute vec3 aVertexPosition;
+      attribute vec4 aVertexColor;
+
+      uniform mat4 uMVMatrix;
+      uniform mat4 uPMatrix;
+
+      varying vec4 vColor;
+
+      void main(void) {
+        gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+        vColor = vec4(1.0, 1.0, 1.0, 1.0);
+      }
+    </script>
+
+
+    <script type="text/javascript">
+
+      var gl;
+      function initGL(canvas) {
+        try {
+          gl = canvas.getContext("experimental-webgl");
+          gl.viewportWidth = canvas.width;
+          gl.viewportHeight = canvas.height;
+        } catch (e) {
+        }
+        if (!gl) {
+          alert("Could not initialise WebGL, sorry :-(");
+        }
+      }
+
+
+      function getShader(gl, id) {
+        var shaderScript = document.getElementById(id);
+        if (!shaderScript) {
+          return null;
+        }
+
+        var str = "";
+        var k = shaderScript.firstChild;
+        while (k) {
+          if (k.nodeType == 3) {
+            str += k.textContent;
+          }
+          k = k.nextSibling;
+        }
+
+        var shader;
+        if (shaderScript.type == "x-shader/x-fragment") {
+          shader = gl.createShader(gl.FRAGMENT_SHADER);
+        } else if (shaderScript.type == "x-shader/x-vertex") {
+          shader = gl.createShader(gl.VERTEX_SHADER);
+        } else {
+          return null;
+        }
+
+        gl.shaderSource(shader, str);
+        gl.compileShader(shader);
+
+        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+          alert(gl.getShaderInfoLog(shader));
+          return null;
+        }
+
+        return shader;
+      }
+
+
+      var shaderProgram;
+
+      function initShaders() {
+        var fragmentShader = getShader(gl, "shader-fs");
+        var vertexShader = getShader(gl, "shader-vs");
+
+        shaderProgram = gl.createProgram();
+        gl.attachShader(shaderProgram, vertexShader);
+        gl.attachShader(shaderProgram, fragmentShader);
+        gl.linkProgram(shaderProgram);
+
+        if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
+          alert("Could not initialise shaders");
+        }
+
+        gl.useProgram(shaderProgram);
+
+        shaderProgram.vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "aVertexPosition");
+        gl.enableVertexAttribArray(shaderProgram.vertexPositionAttribute);
+
+        shaderProgram.pMatrixUniform = gl.getUniformLocation(shaderProgram, "uPMatrix");
+        shaderProgram.mvMatrixUniform = gl.getUniformLocation(shaderProgram, "uMVMatrix");
+      }
+
+      var p_matrix = new PerspectiveMatrix();
+      var mv_matrix = new TransformationMatrix();
+
+      function setMatrixUniforms() {
+        gl.uniformMatrix4fv(shaderProgram.pMatrixUniform, false, p_matrix.to_p_matrix());
+        gl.uniformMatrix4fv(shaderProgram.mvMatrixUniform, false, mv_matrix.to_mv_matrix());
+      }
+
+
+      var squareVertexPositionBuffer;
+
+      function initBuffers() {
+
+        squareVertexPositionBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexPositionBuffer);
+        vertices = [
+           1.0,  1.0,  1.0,
+          -1.0,  1.0,  0.0,
+           1.0, -1.0,  1.0,
+          -1.0, -1.0,  -1.0
+        ];
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+        squareVertexPositionBuffer.itemSize = 3;
+        squareVertexPositionBuffer.numItems = 4;
+      }
+
+
+      function drawScene() {
+        mv_matrix.create_transformation_matrix();
+        p_matrix.create_perspective_matrix();
+        gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
+        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexPositionBuffer);
+        gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, squareVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+        setMatrixUniforms();
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, squareVertexPositionBuffer.numItems);
+      }
+
+
+
+      function webGLStart() {
+        var canvas = document.getElementById("canvas");
+        initGL(canvas);
+        initShaders();
+        initBuffers();
+
+        gl.clearColor(0.0, 0.0, 0.0, 1.0);
+        gl.enable(gl.DEPTH_TEST);
+
+        drawScene();
+      }
+
+      var autorotate = window.setInterval( function() {
+          x_rotation = parseFloat(document.getElementById("x_rotation").value);
+          y_rotation = parseFloat(document.getElementById("y_rotation").value);
+          z_rotation = parseFloat(document.getElementById("z_rotation").value);
+          if (x_rotation < 6.28) {
+            x_rotation += 0.04;
+            document.getElementById("x_rotation").value = x_rotation;
+          }
+          else if (y_rotation < 6.28) {
+            y_rotation += 0.04;
+            document.getElementById("y_rotation").value = y_rotation;
+          }
+          else if (z_rotation < 6.28) {
+            z_rotation += 0.04;
+            document.getElementById("z_rotation").value = z_rotation;
+          }
+          else
+          {
+            window.clearInterval(autorotate);
+          }
+          drawScene();
+        },
+        40
+      );
+    </script>
+
+  </head>
+  <body onload="on_page_load();">
+    <div class="settings">
+      <h3>Rotation Settings</h3>
+      <div class="rotation">
+        <label for="x_rotation">
+          Rotation X:
+        </lablel>
+        <input type="text" id="x_rotation" value="0" onblur="drawScene();">
+        <label for="y_rotation">
+          Y:
+        </lablel>
+        <input type="text" id="y_rotation" value="0" onblur="drawScene();">
+        <label for="z_rotation">
+          Z:
+        </lablel>
+        <input type="text" id="z_rotation" value="0" onblur="drawScene();">
+        <br>
+        <label for="x_translation">
+          Translation X:
+        </lablel>
+        <input type="text" id="x_translation" value="0" onblur="drawScene();">
+        <label for="y_translation">
+          Y:
+        </lablel>
+        <input type="text" id="y_translation" value="0" onblur="drawScene();">
+        <label for="z_translation">
+          Z:
+        </lablel>
+        <input type="text" id="z_translation" value="-7" onblur="drawScene();">
+        <br>
+        <table>
+          <tr>
+            <td id="matrix00"></td>
+            <td id="matrix01"></td>
+            <td id="matrix02"></td>
+            <td id="matrix03"></td>
+          </tr>
+          <tr>
+            <td id="matrix10"></td>
+            <td id="matrix11"></td>
+            <td id="matrix12"></td>
+            <td id="matrix13"></td>
+          </tr>
+          <tr>
+            <td id="matrix20"></td>
+            <td id="matrix21"></td>
+            <td id="matrix22"></td>
+            <td id="matrix23"></td>
+          </tr>
+          <tr>
+            <td id="matrix20"></td>
+            <td id="matrix21"></td>
+            <td id="matrix22"></td>
+            <td id="matrix23"></td>
+          </tr>
+          <tr>
+            <td id="matrix30"></td>
+            <td id="matrix31"></td>
+            <td id="matrix32"></td>
+            <td id="matrix33"></td>
+          </tr>
+        </table>
+        <br>
+      </div>
+      <h3>Perspective Settings</h3>
+      <div class="perspective">
+        <label for="perspective_angle">
+            Perspective angle:
+        </label>
+        <input type="text" id="perspective_angle" value="0.7853">
+        <br>
+        <label for="near_clip">
+            Near clip:
+        </label>
+        <input type="text" id="near_clip" value="0.1">
+        <br>
+        <label for="far_clip">
+            Far clip:
+        </label>
+        <input type="text" id="far_clip" value="100">
+      </div>
+      <h3>Ambient Light Settings</h3>
+      <div class="ambient_lighting">
+        <label for="ambient_lighting_red">
+          Color - R:
+        </label>
+        <input type="text" id="ambient_lighting_red">
+        <label for="ambient_lighting_green">
+          G:
+        </label>
+        <input type="text" id="ambient_lighting_green">
+        <label for="ambient_lighting_blue">
+          B:
+        </label>
+        <input type="text" id="ambient_lighting_blue">
+        <br>
+      </div>
+      <h3>Directional Lighting Settings</h3>
+      <div class="directional_lighting">
+        <label for="directional_lighting_red">
+          Color - R:
+        </label>
+        <input type="text" id="directional_lighting_red">
+        <label for="directional_lighting_green">
+          G:
+        </label>
+        <input type="text" id="directional_lighting_green">
+        <label for="directional_lighting_blue">
+          B:
+        </label>
+        <input type="text" id="directional_lighting_blue">
+        <br>
+      </div>
+    </div>
+    <div class="canvas">
+      <canvas id="canvas" width="500" height="500">
+      </canvas>
+    </div>
+  </body>
+</html>

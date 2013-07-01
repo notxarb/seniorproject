@@ -11,15 +11,21 @@
     </p>
     <h2>Descriptions:</h2>
     <p>
-      This is where the function(s) that define the graph would be. The equation would potentially have several surfaces. Equations will need to have the following functions:
+      This is where the function(s) that define the graph would be.
+      This will nned to have the following attributes:
+      <ul>
+        <li>Equation</li>
+      </ul>
+      The equation would potentially have several surfaces. Equations will need to have the following functions:
       <ul>
         <li>Asymptote detection - This will determine how many surfaces the equation will need to have.</li>
         <li>Point generation - This would be a good place for the points to be created, and then sorted out into surfaces as the asymptote detection decides.</li>
         <li>Surface generation - This create the surfaces and determine which points belong.</li>
+        <li>Draw - This will call draw on each surface associated to this equation.</li>
       </ul>
       This will also need to know if the equation is implicit or parametric, and have either a single equation for z, or have an equation for each x, y, and z.
       It will need references to its generated points, and surfaces.
-      
+
     </p>
   </body>
 </html>

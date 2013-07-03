@@ -190,6 +190,10 @@
 
   </head>
   <body onload="on_page_load();">
+    <div class="canvas">
+      <canvas id="canvas" width="500" height="500">
+      </canvas>
+    </div>
     <div class="settings">
       <h3 onclick="toggle_display('rotation_settings')">Rotation Settings</h3>
       <div id="rotation_settings" class="rotation">
@@ -353,10 +357,6 @@
         <input type="text" id="z_max" value="-10" />
         <br>
       </div>
-    </div>
-    <div class="canvas">
-      <canvas id="canvas" width="500" height="500">
-      </canvas>
     </div>
   </body>
 </html>

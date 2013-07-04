@@ -5,6 +5,12 @@ var TransformationMatrix = function TransformationMatrix() {
     [0, 0, 1, 0],
     [0, 0, 0, 1]
   ];
+
+  this.normal_matrix = [
+    [1, 0, 0],
+    [0, 1, 0],
+    [0, 0, 1]
+  ]
 };
 
 TransformationMatrix.prototype = {
@@ -20,6 +26,29 @@ TransformationMatrix.prototype = {
       }
     }
     return product;
+  },
+
+  create_normal_matrix: function create_normal_matrix() {
+    var a = this.matrix[0][0];
+    var b = this.matrix[0][1];
+    var c = this.matrix[0][2];
+    var d = this.matrix[1][0];
+    var e = this.matrix[1][1];
+    var f = this.matrix[1][2];
+    var g = this.matrix[2][0];
+    var h = this.matrix[2][1];
+    var i = this.matrix[2][2];
+    var det = a * ( e * i - h * f ) - b * ( d * i - g * f ) + c * ( d * h - g * e );
+    this.normal_matrix = [
+    [(e * i - f * h) / det, (d * i - f * g) / det, (d * h - e * g) / det ],
+    [(b * i - c * h) / det, (a * i - c * g) / det, (a * h - b * g) / det],
+    [(b * f - f * e) / det, (a * f - c * d) / det, (a * e - b * d) / det]
+    ];
+    // this.normal_matrix = [
+    // [(e * i - f * h) / det, (b * i - c * h) / det, (b * f - f * e) / det ],
+    // [(d * i - f * g) / det, (a * i - c * g) / det, (a * f - c * d) / det],
+    // [(d * h - e * g) / det, (a * h - b * g) / det, (a * e - b * d) / det]
+    // ];
   },
 
   rotate: function rotate(x_rotation, y_rotation, z_rotation) {
@@ -81,5 +110,15 @@ TransformationMatrix.prototype = {
       }
     }
     return mv_matrix;
+  },
+
+  to_normal_matrix: function to_normal_matrix() {
+    var gl_matrix = new Array();
+    for (var col = 0; col < 3; col++) {
+      for (var row = 0; row < 3; row++) {
+        gl_matrix.push(this.matrix[row][col]);
+      }
+    }
+    return gl_matrix;
   }
 };

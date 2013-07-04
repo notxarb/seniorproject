@@ -11,6 +11,9 @@ Equation.prototype = {
   generate_surfaces: function generate_surfaces() {
 
   },
+  generate_normals: function generate_normals() {
+
+  },
   draw: function draw() {
 
   },

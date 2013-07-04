@@ -5,6 +5,8 @@
     <script type="text/javascript" src="../js/navagation.js"></script>
     <script type="text/javascript" src="../js/transformation_matrix.js"></script>
     <script type="text/javascript" src="../js/perspective_matrix.js"></script>
+    <script type="text/javascript" src="../js/ambient_light.js"></script>
+    <script type="text/javascript" src="../js/directional_light.js"></script>
     <script type="text/javascript" src="../js/main.js"></script>
 
     <script id="shader-fs" type="x-shader/x-fragment">
@@ -131,7 +133,7 @@
         gl.uniformMatrix4fv(shaderProgram.mvMatrixUniform, false, mv_matrix.to_mv_matrix());
         gl.uniformMatrix3fv(shaderProgram.nMatrixUniform, false, mv_matrix.to_normal_matrix());
         gl.uniform3f(shaderProgram.ambientColorUniform,0.3,0.2,0.1);
-        gl.uniform3fv(shaderProgram.lightingDirectionUniform, [0, Math.sqrt(2)/2, -Math.sqrt(2)/2]);
+        gl.uniform3fv(shaderProgram.lightingDirectionUniform, [0, 0, -1]);
         gl.uniform3f(shaderProgram.directionalColorUniform,0.7,0.8,0.9);
       }
 

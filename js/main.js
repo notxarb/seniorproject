@@ -1,6 +1,8 @@
 var gl;
 var p_matrix = new PerspectiveMatrix();
 var mv_matrix = new TransformationMatrix();
+var ambient_light = new AmbientLight(0.5, 0.5, 0.5);
+var directional_light = new DirectionalLight(0.5, 0.5, 0.5, 0.0, 0.0, -1.0);
 
 function on_page_load() {
   var canvas = document.getElementById("canvas");
@@ -39,10 +41,23 @@ function update_perspective_matrix() {
 }
 
 function update_ambient_lighting() {
+  r = parseFloat(document.getElementById("ambient_lighting_red").value);
+  g = parseFloat(document.getElementById("ambient_lighting_green").value);
+  b = parseFloat(document.getElementById("ambient_lighting_blue").value);
+
+  ambient_light.update(r, g, b);
   drawScene();
 }
 
 function update_directional_lighing() {
+  r = parseFloat(document.getElementById("directional_lighting_red").value);
+  g = parseFloat(document.getElementById("directional_lighting_green").value);
+  b = parseFloat(document.getElementById("directional_lighting_blue").value);
+  x = parseFloat(document.getElementById("directional_lighting_x").value);
+  y = parseFloat(document.getElementById("directional_lighting_y").value);
+  z = parseFloat(document.getElementById("directional_lighting_z").value);
+
+  directional_light.update(r, g, b, x, y, z);
   drawScene();
 }
 

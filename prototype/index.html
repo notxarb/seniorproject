@@ -109,9 +109,6 @@
         shaderProgram.mvMatrixUniform = gl.getUniformLocation(shaderProgram, "uMVMatrix");
       }
 
-      var p_matrix = new PerspectiveMatrix();
-      var mv_matrix = new TransformationMatrix();
-
       function setMatrixUniforms() {
         gl.uniformMatrix4fv(shaderProgram.pMatrixUniform, false, p_matrix.to_p_matrix());
         gl.uniformMatrix4fv(shaderProgram.mvMatrixUniform, false, mv_matrix.to_mv_matrix());
@@ -137,8 +134,6 @@
 
 
       function drawScene() {
-        mv_matrix.create_transformation_matrix();
-        p_matrix.create_perspective_matrix();
         gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
@@ -200,28 +195,28 @@
         <label for="x_rotation">
           Rotation X:
         </label>
-        <input type="text" id="x_rotation" value="0" onblur="drawScene();" />
+        <input type="text" id="x_rotation" value="0" onblur="update_transformation_matrix();" />
         <label for="y_rotation">
           Y:
         </label>
-        <input type="text" id="y_rotation" value="0" onblur="drawScene();" />
+        <input type="text" id="y_rotation" value="0" onblur="update_transformation_matrix();" />
         <label for="z_rotation">
           Z:
         </label>
-        <input type="text" id="z_rotation" value="0" onblur="drawScene();" />
+        <input type="text" id="z_rotation" value="0" onblur="update_transformation_matrix();" />
         <br>
         <label for="x_translation">
           Translation X:
         </label>
-        <input type="text" id="x_translation" value="0" onblur="drawScene();" />
+        <input type="text" id="x_translation" value="0" onblur="update_transformation_matrix();" />
         <label for="y_translation">
           Y:
         </label>
-        <input type="text" id="y_translation" value="0" onblur="drawScene();" />
+        <input type="text" id="y_translation" value="0" onblur="update_transformation_matrix();" />
         <label for="z_translation">
           Z:
         </label>
-        <input type="text" id="z_translation" value="-7" onblur="drawScene();" />
+        <input type="text" id="z_translation" value="-7" onblur="update_transformation_matrix();" />
         <br>
         <table>
           <tr>
@@ -262,32 +257,32 @@
         <label for="perspective_angle">
             Perspective angle:
         </label>
-        <input type="text" id="perspective_angle" value="0.7853" />
+        <input type="text" id="perspective_angle" value="0.7853" onblur="update_perspective_matrix();" />
         <br>
         <label for="near_clip">
             Near clip:
         </label>
-        <input type="text" id="near_clip" value="0.1" />
+        <input type="text" id="near_clip" value="0.1" onblur="update_perspective_matrix();" />
         <br>
         <label for="far_clip">
             Far clip:
         </label>
-        <input type="text" id="far_clip" value="100" />
+        <input type="text" id="far_clip" value="100" onblur="update_perspective_matrix();" />
       </div>
       <h3 onclick="toggle_display('ambient_light_settings');">Ambient Light Settings</h3>
       <div id="ambient_light_settings" class="ambient_lighting">
         <label for="ambient_lighting_red">
           Color - R:
         </label>
-        <input type="text" id="ambient_lighting_red" value="0.5" />
+        <input type="text" id="ambient_lighting_red" value="0.5" onblur="update_ambient_lighting();" />
         <label for="ambient_lighting_green">
           G:
         </label>
-        <input type="text" id="ambient_lighting_green" value="0.5" />
+        <input type="text" id="ambient_lighting_green" value="0.5" onblur="update_ambient_lighting();" />
         <label for="ambient_lighting_blue">
           B:
         </label>
-        <input type="text" id="ambient_lighting_blue" value="0.5" />
+        <input type="text" id="ambient_lighting_blue" value="0.5" onblur="update_ambient_lighting();" />
         <br>
       </div>
       <h3 onclick="toggle_display('directional_lighting_settings');">Directional Lighting Settings</h3>
@@ -295,28 +290,28 @@
         <label for="directional_lighting_red">
           Color - R:
         </label>
-        <input type="text" id="directional_lighting_red" value="0.5" />
+        <input type="text" id="directional_lighting_red" value="0.5" onblur="update_directional_lighing();" />
         <label for="directional_lighting_green">
           G:
         </label>
-        <input type="text" id="directional_lighting_green" value="0.5" />
+        <input type="text" id="directional_lighting_green" value="0.5" onblur="update_directional_lighing();" />
         <label for="directional_lighting_blue">
           B:
         </label>
-        <input type="text" id="directional_lighting_blue" value="0.5"/>
+        <input type="text" id="directional_lighting_blue" value="0.5"onblur="update_directional_lighing();" />
         <br>
         <label for="directional_lighting_x">
           Direction - X:
         </label>
-        <input type="text" id="directional_lighting_x" value="0.5" />
+        <input type="text" id="directional_lighting_x" value="0.5" onblur="update_directional_lighing();" />
         <label for="directional_lighting_y">
           Y:
         </label>
-        <input type="text" id="directional_lighting_y" value="0.5" />
+        <input type="text" id="directional_lighting_y" value="0.5" onblur="update_directional_lighing();" />
         <label for="directional_lighting_z">
           Z:
         </label>
-        <input type="text" id="directional_lighting_z" value="0.5" />
+        <input type="text" id="directional_lighting_z" value="0.5" onblur="update_directional_lighing();" />
         <br>
       </div>
       <h3 onclick="toggle_display('bound_settings');">Bounds</h3>
@@ -324,37 +319,37 @@
         <label for="x_min">
           X Min:
         </label>
-        <input type="text" id="x_min" value="-10" />
+        <input type="text" id="x_min" value="-10" onblur="update_bounds();" />
         <label for="x_max">
           Max:
         </label>
-        <input type="text" id="x_max" value="-10" />
+        <input type="text" id="x_max" value="-10" onblur="update_bounds();" />
         <label for="x_step">
           Step:
         </label>
-        <input type="text" id="x_step" value="-10" />
+        <input type="text" id="x_step" value="-10" onblur="update_bounds();" />
         <br>
         <label for="y_min">
           Y Min:
         </label>
-        <input type="text" id="y_min" value="-10" />
+        <input type="text" id="y_min" value="-10" onblur="update_bounds();" />
         <label for="y_max">
           Max:
         </label>
-        <input type="text" id="y_max" value="-10" />
+        <input type="text" id="y_max" value="-10" onblur="update_bounds();" />
         <label for="y_step">
           Step:
         </label>
-        <input type="text" id="y_step" value="-10" />
+        <input type="text" id="y_step" value="-10" onblur="update_bounds();" />
         <br>
         <label for="z_min">
           Z Min:
         </label>
-        <input type="text" id="z_min" value="-10" />
+        <input type="text" id="z_min" value="-10" onblur="update_bounds();" />
         <label for="z_max">
           Max:
         </label>
-        <input type="text" id="z_max" value="-10" />
+        <input type="text" id="z_max" value="-10" onblur="update_bounds();" />
         <br>
       </div>
     </div>

@@ -1,8 +1,8 @@
 var gl;
 var p_matrix = new PerspectiveMatrix();
 var mv_matrix = new TransformationMatrix();
-var ambient_light = new AmbientLight(0.5, 0.5, 0.5);
-var directional_light = new DirectionalLight(0.5, 0.5, 0.5, 0.0, 0.0, -1.0);
+var ambient_light = new AmbientLight(0.01, 0.01, 0.01);
+var directional_light = new DirectionalLight(0.99, 0.99, 0.99, 0.0, 0.0, -1.0);
 
 function on_page_load() {
   var canvas = document.getElementById("canvas");

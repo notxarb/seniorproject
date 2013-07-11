@@ -1,0 +1,62 @@
+a b c
+d e f
+g h i
+
+ea eb ec ef ei eh eg ed
+
+ea x eb eb x ec ec x ef ef x ei ei x eh eh x eg eg x ed ed x ea
+
+
+        vertices = [
+           1.0,  1.0,  1.0,
+          -1.0,  1.0,  0.0,
+           1.0, -1.0,  1.0,
+          -1.0, -1.0,  -1.0
+        ];
+
+
+b  a
+d  c
+
+
+ab
+ad
+ac
+bd
+bc
+cd
+
+a = 
+
+
+def cross(a, b)
+  [ a[1] * b[2] - b[1] * a[2], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0] ]
+end
+
+def normal(a, b, c)
+  ab = [ b[0] - a[0], b[1] - a[1], b[2] - a[2] ]
+  ac = [ c[0] - a[0], c[1] - a[1], c[2] - a[2] ]
+  cross = cross(ab, ac)
+  length = Math.sqrt( cross[0] * cross[0] + cross[1] * cross[1] + cross[2] * cross[2] )
+  [ cross[0] / length, cross[1] / length, cross[2] / length ]
+end
+
+def average_normal(a, b, c, d)
+  abac = normal(a, b, c)
+  acad = normal(a, c, d)
+  [ (abac[0] + acad[0]) / 2, (abac[1] + acad[1]) / 2, (abac[2] + acad[2]) / 2 ]
+end
+
+
+         [i][j+1]
+[i-1][j]  [i][j]   [i+1][j]
+         [i][j-1]
+
+e = new Equation();
+
+e.points = [ 
+  [ new Point(-1.0, -1.0,  -1.0), new Point(1.0, -1.0,  1.0) ],
+  [ new Point(-1.0,  1.0,  0.0), new Point(1.0,  1.0,  1.0) ] 
+]
+
+e.points[i][j].cross(e.points[i][j+1], e.points[i+1][j])

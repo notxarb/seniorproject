@@ -1,10 +1,5 @@
-var PerspectiveMatrix = function PerspectiveMatrix() {
-  this.matrix = [
-    [1, 0, 0, 0],
-    [0, 1, 0, 0],
-    [0, 0, -1, 0],
-    [0, 0, -1, 1]
-  ];
+var PerspectiveMatrix = function PerspectiveMatrix(near, far, view, height, width) {
+  this.create_perspective_matrix(near, far, view, height, width);
 };
 
 PerspectiveMatrix.prototype = {
@@ -18,12 +13,7 @@ PerspectiveMatrix.prototype = {
     ];
   },
 
-  create_perspective_matrix: function create_perspective_matrix() {
-    var near   = parseFloat(document.getElementById("near_clip").value);
-    var far    = parseFloat(document.getElementById("far_clip").value);
-    var view   = parseFloat(document.getElementById("perspective_angle").value);
-    var height = gl.viewportHeight;
-    var width  = gl.viewportWidth;
+  create_perspective_matrix: function create_perspective_matrix(near, far, view, height, width) {
     this.matrix = this.frustrum( near, far, view, height, width );
   },
 

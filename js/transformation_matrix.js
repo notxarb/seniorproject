@@ -1,16 +1,7 @@
-var TransformationMatrix = function TransformationMatrix() {
-  this.matrix = [
-    [1, 0, 0, 0],
-    [0, 1, 0, 0],
-    [0, 0, 1, 0],
-    [0, 0, 0, 1]
-  ];
+var TransformationMatrix = function TransformationMatrix(x_rotation, y_rotation, z_rotation, x_translation, y_translation, z_translation) {
+  this.create_transformation_matrix(x_rotation, y_rotation, z_rotation, x_translation, y_translation, z_translation)
 
-  this.normal_matrix = [
-    [1, 0, 0],
-    [0, 1, 0],
-    [0, 0, 1]
-  ]
+  this.create_normal_matrix();
 };
 
 TransformationMatrix.prototype = {
@@ -86,13 +77,7 @@ TransformationMatrix.prototype = {
     ];
   },
 
-  create_transformation_matrix: function create_transformation_matrix() {
-    var x_rotation = parseFloat(document.getElementById("x_rotation").value);
-    var y_rotation = parseFloat(document.getElementById("y_rotation").value);
-    var z_rotation = parseFloat(document.getElementById("z_rotation").value);
-    var x_translation = parseFloat(document.getElementById("x_translation").value);
-    var y_translation = parseFloat(document.getElementById("y_translation").value);
-    var z_translation = parseFloat(document.getElementById("z_translation").value);
+  create_transformation_matrix: function create_transformation_matrix(x_rotation, y_rotation, z_rotation, x_translation, y_translation, z_translation) {
     this.matrix = this.multiply_matrices( this.translate(x_translation, y_translation, z_translation), this.rotate(x_rotation, y_rotation, z_rotation) );
     for (var row = 0; row < 4; row++) {
       for (var col = 0; col < 4; col++) {

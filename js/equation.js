@@ -33,7 +33,7 @@ Equation.prototype = {
 
   },
   factorial: function factorial(x) {
-    return (x <= 1) ? 1 : (x * factorial(x -1)) ;
+    return (x <= 1) ? 1 : (x * factorial(x - 1)) ;
   },
   generate_surfaces: function generate_surfaces() {
     this.surfaces.push(new Surface());

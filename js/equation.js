@@ -3,7 +3,7 @@ var Equation = function Equation(equation) {
     this.equation = equation;
   }
   else {
-    this.equation = '( x + y ) / ( x - y)';
+    this.equation = 'this.factorial(x + y) / (this.factorial(x) * this.factorial(y) * 40)';
   }
   
   this.points = [];
@@ -31,6 +31,9 @@ Equation.prototype = {
       this.points.push(row);
     }
 
+  },
+  factorial: function factorial(x) {
+    return (x <= 1) ? 1 : (x * factorial(x -1)) ;
   },
   generate_surfaces: function generate_surfaces() {
     this.surfaces.push(new Surface());

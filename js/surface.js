@@ -84,7 +84,7 @@ Surface.prototype = {
 
   draw: function draw() {
     for (i = 0; i < this.vertex_buffers.length; i++) {
-      setMatrixUniforms();
+      set_matrix_uniforms();
       
       gl.bindBuffer(gl.ARRAY_BUFFER, this.vertex_buffers[i]);
       gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);

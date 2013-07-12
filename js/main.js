@@ -123,3 +123,12 @@ function update_directional_lighing() {
 function update_bounds() {
   equation.draw();
 }
+
+function set_matrix_uniforms() {
+  gl.uniformMatrix4fv(shaderProgram.pMatrixUniform, false, p_matrix.to_p_matrix());
+  gl.uniformMatrix4fv(shaderProgram.mvMatrixUniform, false, mv_matrix.to_mv_matrix());
+  gl.uniformMatrix3fv(shaderProgram.nMatrixUniform, false, mv_matrix.to_normal_matrix());
+  gl.uniform3fv(shaderProgram.ambientColorUniform, ambient_light.color);
+  gl.uniform3fv(shaderProgram.lightingDirectionUniform, directional_light.unit_vector());
+  gl.uniform3fv(shaderProgram.directionalColorUniform, directional_light.color);
+}

@@ -113,15 +113,6 @@
         shaderProgram.directionalColorUniform = gl.getUniformLocation(shaderProgram, "uDirectionalColor");
       }
 
-      function setMatrixUniforms() {
-        gl.uniformMatrix4fv(shaderProgram.pMatrixUniform, false, p_matrix.to_p_matrix());
-        gl.uniformMatrix4fv(shaderProgram.mvMatrixUniform, false, mv_matrix.to_mv_matrix());
-        gl.uniformMatrix3fv(shaderProgram.nMatrixUniform, false, mv_matrix.to_normal_matrix());
-        gl.uniform3fv(shaderProgram.ambientColorUniform, ambient_light.color);
-        gl.uniform3fv(shaderProgram.lightingDirectionUniform, directional_light.unit_vector());
-        gl.uniform3fv(shaderProgram.directionalColorUniform, directional_light.color);
-      }
-
       var autorotate = window.setInterval( function() {
           x_rotation = parseFloat(document.getElementById("x_rotation").value);
           y_rotation = parseFloat(document.getElementById("y_rotation").value);

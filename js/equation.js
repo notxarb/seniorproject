@@ -15,22 +15,48 @@ var Equation = function Equation(equation) {
 
 Equation.prototype = {
   generate_points: function generate_points() {
-    this.points = [];
-    var row;
-    for ( x = -10.0; x <= 10.0; x+= 0.1 ) {
-      row = [];
-      for ( y = -10.0; y <= 10.0; y+= 0.1 ) {
-        z = eval(this.equation);
-        if (isNaN(z)) {
-          row.push(null);
+    if (this.equation instanceof Array)
+    {
+      this.points = [];
+      var row;
+      for ( u = -Math.PI; u <= Math.PI + 0.1; u+= 0.1 ) {
+        row = [];
+        for ( v = -Math.PI; v <= Math.PI; v+= 0.1 ) {
+          x = eval(this.equation[0]);
+          y = eval(this.equation[1]);
+          z = eval(this.equation[2]);
+          if (isNaN(x) || isNaN(y) || isNaN(z)) {
+            row.push(null);
+          }
+          else {
+            point = new Point(x, y, z);
+            point.u = u;
+            point.v = v;
+            row.push(point);
+          }
         }
-        else {
-          row.push(new Point(x, y, z));
-        }
+        this.points.push(row);
       }
-      this.points.push(row);
-    }
 
+    }
+    else
+    {
+      this.points = [];
+      var row;
+      for ( x = -10.0; x <= 10.0; x+= 0.1 ) {
+        row = [];
+        for ( y = -10.0; y <= 10.0; y+= 0.1 ) {
+          z = eval(this.equation);
+          if (isNaN(z)) {
+            row.push(null);
+          }
+          else {
+            row.push(new Point(x, y, z));
+          }
+        }
+        this.points.push(row);
+      }
+    }
   },
   factorial: function factorial(x) {
     return (x <= 1) ? 1 : (x * factorial(x - 1)) ;

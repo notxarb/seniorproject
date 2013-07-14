@@ -1,16 +1,16 @@
 <html>
   <head>
     <title>Braxton's Senior Project - Design Documents</title>
-    <link rel="stylesheet" type="text/css" href="../css/all.css">
-    <script type="text/javascript" src="../js/navagation.js"></script>
-    <script type="text/javascript" src="../js/transformation_matrix.js"></script>
-    <script type="text/javascript" src="../js/perspective_matrix.js"></script>
-    <script type="text/javascript" src="../js/ambient_light.js"></script>
-    <script type="text/javascript" src="../js/directional_light.js"></script>
-    <script type="text/javascript" src="../js/point.js"></script>
-    <script type="text/javascript" src="../js/surface.js"></script>
-    <script type="text/javascript" src="../js/equation.js"></script>
-    <script type="text/javascript" src="../js/main.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/all.css">
+    <script type="text/javascript" src="/js/navagation.js"></script>
+    <script type="text/javascript" src="/js/transformation_matrix.js"></script>
+    <script type="text/javascript" src="/js/perspective_matrix.js"></script>
+    <script type="text/javascript" src="/js/ambient_light.js"></script>
+    <script type="text/javascript" src="/js/directional_light.js"></script>
+    <script type="text/javascript" src="/js/point.js"></script>
+    <script type="text/javascript" src="/js/surface.js"></script>
+    <script type="text/javascript" src="/js/equation.js"></script>
+    <script type="text/javascript" src="/js/main.js"></script>
 
     <script id="shader-fs" type="x-shader/x-fragment">
         precision mediump float;
@@ -149,7 +149,7 @@
     </script>
 
   </head>
-  <body onload="on_page_load('Math.sqrt(25 - x * x - y * y)');">
+  <body onload="on_page_load(['Math.cos(u) * ( 6 + 3 * Math.cos(v))','Math.sin(u) * (6 + 3 * Math.cos(v))','3 * Math.sin(v)']);">
     <div class="canvas">
       <canvas id="canvas" width="500" height="500">
       </canvas>
@@ -277,44 +277,6 @@
           Z:
         </label>
         <input type="text" id="directional_lighting_z" value="0" onblur="update_directional_lighing();" />
-        <br>
-      </div>
-      <h3 onclick="toggle_display('bound_settings');">Bounds</h3>
-      <div id="bound_settings">
-        <label for="x_min">
-          X Min:
-        </label>
-        <input type="text" id="x_min" value="-10" onblur="update_bounds();" />
-        <label for="x_max">
-          Max:
-        </label>
-        <input type="text" id="x_max" value="10" onblur="update_bounds();" />
-        <label for="x_step">
-          Step:
-        </label>
-        <input type="text" id="x_step" value="0.1" onblur="update_bounds();" />
-        <br>
-        <label for="y_min">
-          Y Min:
-        </label>
-        <input type="text" id="y_min" value="-10" onblur="update_bounds();" />
-        <label for="y_max">
-          Max:
-        </label>
-        <input type="text" id="y_max" value="10" onblur="update_bounds();" />
-        <label for="y_step">
-          Step:
-        </label>
-        <input type="text" id="y_step" value="0.1" onblur="update_bounds();" />
-        <br>
-        <label for="z_min">
-          Z Min:
-        </label>
-        <input type="text" id="z_min" value="-10" onblur="update_bounds();" />
-        <label for="z_max">
-          Max:
-        </label>
-        <input type="text" id="z_max" value="10" onblur="update_bounds();" />
         <br>
       </div>
     </div>

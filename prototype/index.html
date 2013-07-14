@@ -113,7 +113,7 @@
         shaderProgram.directionalColorUniform = gl.getUniformLocation(shaderProgram, "uDirectionalColor");
       }
 
-      var autorotate = window.setInterval( function() {
+      var auto_rotate = window.setInterval( function() {
           x_rotation = parseFloat(document.getElementById("x_rotation").value);
           y_rotation = parseFloat(document.getElementById("y_rotation").value);
           z_rotation = parseFloat(document.getElementById("z_rotation").value);
@@ -131,7 +131,7 @@
           }
           else
           {
-            window.clearInterval(autorotate);
+            window.clearInterval(auto_rotate);
           }
           update_transformation_matrix();
         },
@@ -140,7 +140,7 @@
     </script>
 
   </head>
-  <body onload="on_page_load('this.factorial(x + y) / (this.factorial(x) * this.factorial(y) * 20000)');">
+  <body onload="on_page_load(['v * Math.cos(u)','v * Math.sin(u)','v']);">
     <div class="canvas">
       <canvas id="canvas" width="500" height="500">
       </canvas>
@@ -268,44 +268,6 @@
           Z:
         </label>
         <input type="text" id="directional_lighting_z" value="0" onblur="update_directional_lighing();" />
-        <br>
-      </div>
-      <h3 onclick="toggle_display('bound_settings');">Bounds</h3>
-      <div id="bound_settings">
-        <label for="x_min">
-          X Min:
-        </label>
-        <input type="text" id="x_min" value="-10" onblur="update_bounds();" />
-        <label for="x_max">
-          Max:
-        </label>
-        <input type="text" id="x_max" value="10" onblur="update_bounds();" />
-        <label for="x_step">
-          Step:
-        </label>
-        <input type="text" id="x_step" value="0.1" onblur="update_bounds();" />
-        <br>
-        <label for="y_min">
-          Y Min:
-        </label>
-        <input type="text" id="y_min" value="-10" onblur="update_bounds();" />
-        <label for="y_max">
-          Max:
-        </label>
-        <input type="text" id="y_max" value="10" onblur="update_bounds();" />
-        <label for="y_step">
-          Step:
-        </label>
-        <input type="text" id="y_step" value="0.1" onblur="update_bounds();" />
-        <br>
-        <label for="z_min">
-          Z Min:
-        </label>
-        <input type="text" id="z_min" value="-10" onblur="update_bounds();" />
-        <label for="z_max">
-          Max:
-        </label>
-        <input type="text" id="z_max" value="10" onblur="update_bounds();" />
         <br>
       </div>
     </div>

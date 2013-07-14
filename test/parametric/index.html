@@ -3,10 +3,65 @@
     <title>Braxton's Senior Project - Tests - Parametric</title>
   </head>
   <body>
-    <h1><a href="/test/parametric/test1.html">Test 1 - z = x + y</a></h1>
-    <h1><a href="/test/parametric/test2.html">Test 1 - z = x * y</a></h1>
-    <h1><a href="/test/parametric/test3.html">Test 1 - z = Math.sqrt(25 - x * x - y * y)</a></h1>
-    <h1><a href="/test/parametric/test4.html">Test 1 - z = Math.sin(x) + Math.cos(y)</a></h1>
-    <h1><a href="/test/parametric/test5.html">Test 1 - z = Math.log(x * y)</a></h1>
+    <h1><a href="/test/parametric/test1.html">Test 1 - Cone</a></h1>
+    <ul>
+      <li>
+        x = v * Math.cos(u)
+      </li>
+      <li>
+        y = v * Math.sin(u)
+      </li>
+      <li>
+        z = v
+      </li>
+    </ul>
+    <h1><a href="/test/parametric/test2.html">Test 2 - Torus</a></h1>
+    <ul>
+      <li>
+        x = Math.cos(u) * ( 6 + 3 * Math.cos(v))
+      </li>
+      <li>
+        y = Math.sin(u) * (6 + 3 * Math.cos(v))
+      </li>
+      <li>
+        z = 3 * Math.sin(v)
+      </li>
+    </ul>
+    <h1><a href="/test/parametric/test3.html">Test 3 - Elipsoid</a></h1>
+    <ul>
+      <li>
+        x = 6 * Math.cos(u) * Math.cos(v)
+      </li>
+      <li>
+        y = 4 * Math.sin(u) * Math.cos(v)
+      </li>
+      <li>
+        z = 3 * Math.sin(v)
+      </li>
+    </ul>
+    <h1><a href="/test/parametric/test4.html">Test 4 - M&ouml;bius Strip</a></h1>
+    <ul>
+      <li>
+        x = 2 * ( Math.cos( u ) + v / ( 2 * Math.PI) * Math.cos( u / 2 ) * Math.cos(u))
+      </li>
+      <li>
+        y = 2 * ( Math.sin( u ) + v / ( 2 * Math.PI ) * Math.cos( u / 2 ) * Math.sin(u))
+      </li>
+      <li>
+        z = v / Math.PI * Math.sin( u / 2 )
+      </li>
+    </ul>
+    <h1><a href="/test/parametric/test5.html">Test 5 - Helicoid</a></h1>
+    <ul>
+      <li>
+        x = v * Math.cos(u)
+      </li>
+      <li>
+        y = v * Math.sin(u)
+      </li>
+      <li>
+        z = u
+      </li>
+    </ul>
   </body>
 </html>

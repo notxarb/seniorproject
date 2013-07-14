@@ -41,7 +41,11 @@
 
       void main(void) {
         gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
-        vColor = vec4(1.0, 1.0, 1.0, 1.0);
+        if ( mod( ceil( aVertexPosition.x ) + ceil( aVertexPosition.y ), 2.0) ==  0.0 ) {
+          vColor = vec4(0.8, 0.8, 0.8, 1.0);
+        } else {
+          vColor = vec4(1.0, 1.0, 1.0, 1.0);
+        }
         vec3 transformedNormal = uNMatrix * aVertexNormal;
         float directionalLightWeighting = abs(dot(uLightingDirection, aVertexNormal));
         vLightWeighting = uAmbientColor + (uDirectionalColor * directionalLightWeighting);

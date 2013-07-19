@@ -1,0 +1,50 @@
+<html>
+  <head>
+    <title>Braxton's Senior Project - Design Documents</title>
+    <script type="text/javascript" src="/js/navagation.js"></script>
+  </head>
+  <body>
+    <h1>Main</h1>
+    <h2>Definitions:</h2>
+      Main - Commonly used in programming to hold main flow of a program.
+    <p>
+    </p>
+    <h2>Descriptions:</h2>
+    <p>
+      This will take care of basic set up of the WebGL. This will also take care of user input and adjust other objects to account for desired changes.
+      This will need to have the following attributes:
+      <ul>
+        <li>
+          GL - This is the reference to interact with the WebGL binding from the canvas.
+        </li>
+        <li>
+          Transformation Matrix - This is used to store rotation and translation information.
+        </li>
+        <li>
+          Perspective Matrix - This is used to calculate how to adjust the image to give perspective to the objects.
+        </li>
+        <li>
+          Ambient Light - This stores the information on ambient lighting to use.
+        </li>
+        <li>
+          Directional Light - This stores the information needed to calculate the directional lighting.
+        </li>
+        <li>
+          Shader Program - This is where the vertex and fragment shaders are registered with WebGL.
+        </li>
+        <li>
+          Equation - This is where the equation data is stored, points are generated, and other things related to the graph.
+        </li>
+      </ul>
+      Main will need the following functions:
+      <ul>
+        <li>
+          On Page Load - This takes an equation as a string, or an array and passes it to equation. It also initializes all other objects needed to display a graph.
+        </li>
+        <li>
+          Initialize Canvas - This will get the canvas ready to run WebGL.
+        </li>
+      </ul>
+    </p>
+  </body>
+</html>

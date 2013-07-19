@@ -8,13 +8,10 @@ var Equation = function Equation(equation) {
   
   this.points = [];
   this.surfaces = [];
-  console.log('generate_points');
+  this.generate_google_link();
   this.generate_points();
-  console.log('smooth_edges');
   this.smooth_edges();
-  console.log('generate_normals');
   this.generate_normals();
-  console.log('generate_surfaces');
   this.generate_surfaces();
 }
 
@@ -142,16 +139,12 @@ Equation.prototype = {
                 x_min = this.points[i][j].coordinates[0] - 0.1;
                 x_max = this.points[i][j].coordinates[0];
                 x_dir = "left";
-                // console.log("was point.coordinates = [" + this.points[i][j].coordinates[0] + ", " + this.points[i][j].coordinates[1] + ", " + this.points[i][j].coordinates[2] + "]" )
-                // console.log("move point[" + i + "][" + j + "] left");
               }
               else if ( (this.points[i - 1][j] instanceof Point) && !(this.points[i + 1][j] instanceof Point) ) {
                 // should try shifting x toward x + .05
                 x_min = this.points[i][j].coordinates[0];
                 x_max = this.points[i][j].coordinates[0] + 0.1;
                 x_dir = "right";
-                // console.log("was point.coordinates = [" + this.points[i][j].coordinates[0] + ", " + this.points[i][j].coordinates[1] + ", " + this.points[i][j].coordinates[2] + "]" )
-                // console.log("move point[" + i + "][" + j + "] right");
               }
               else
               {
@@ -170,16 +163,12 @@ Equation.prototype = {
                 y_min = this.points[i][j].coordinates[1] - 0.1;
                 y_max = this.points[i][j].coordinates[1];
                 y_dir = "down";
-                // console.log("was point.coordinates = [" + this.points[i][j].coordinates[0] + ", " + this.points[i][j].coordinates[1] + ", " + this.points[i][j].coordinates[2] + "]" )
-                // console.log("move point[" + i + "][" + j + "] down");
               }
               else if ( (this.points[i][j - 1] instanceof Point) && !(this.points[i][j + 1] instanceof Point) ) {
                 // should try shifting y toward y + .05
                 y_min = this.points[i][j].coordinates[1];
                 y_max = this.points[i][j].coordinates[1] + 0.1;
                 y_dir = "up";
-                // console.log("was point.coordinates = [" + this.points[i][j].coordinates[0] + ", " + this.points[i][j].coordinates[1] + ", " + this.points[i][j].coordinates[2] + "]" )
-                // console.log("move point[" + i + "][" + j + "] up");
               }
               else
               {
@@ -197,7 +186,7 @@ Equation.prototype = {
               var x;
               var y;
               var z;
-              if (x_min) {
+              if (x_min && !y_min) {
                 y = this.points[i][j].coordinates[1];
                 for (rounds = 0; rounds < 30; rounds += 1) {
                   x = (x_min + x_max) / 2;
@@ -231,7 +220,7 @@ Equation.prototype = {
                   this.points[i][j].coordinates = [x, y, z];
                 }
               }
-              if (y_min) {
+              if (!x_min && y_min) {
                 x = this.points[i][j].coordinates[0];
                 for (rounds = 0; rounds < 30; rounds += 1) {
                   y = (y_min + y_max) / 2;
@@ -265,8 +254,55 @@ Equation.prototype = {
                   this.points[i][j].coordinates = [x, y, z];
                 }
               }
-              if ( Math.abs(this.points[i][j].coordinates[2]) < 9.95 ) {
-                console.log("point.coordinates = [" + this.points[i][j].coordinates[0] + ", " + this.points[i][j].coordinates[1] + ", " + this.points[i][j].coordinates[2] + "]" );
+              if (x_min && y_min) {
+                for (rounds = 0; rounds < 30; rounds += 1) {
+                  x = (x_min + x_max) / 2;
+                  y = (y_min + y_max) / 2;
+                  z = eval(this.equation);
+                  if (isNaN(z) || z > 10.0 || z < -10.0) {
+                    if (x_dir == "left"){
+                      x_min = (x_min + x_max) / 2;
+                    } 
+                    else {
+                      x_max = (x_min + x_max) / 2;
+                    }
+                    if (y_dir == "down"){
+                      y_min = (y_min + y_max) / 2;
+                    } 
+                    else {
+                      y_max = (y_min + y_max) / 2;
+                    }
+                  }
+                  else {
+                    if (y_dir == "down"){
+                      y_max = (y_min + y_max) / 2;
+                    } 
+                    else {
+                      y_min = (y_min + y_max) / 2;
+                    }
+                    if (x_dir == "left"){
+                      x_max = (x_min + x_max) / 2;
+                    } 
+                    else {
+                      x_min = (x_min + x_max) / 2;
+                    }
+                  }
+                }
+                if (x_dir == "left") {
+                  x = x_max;
+                }
+                else {
+                  x = x_min;
+                }
+                if (y_dir == "down") {
+                  y = y_max;
+                }
+                else {
+                  y = y_min;
+                }
+                z = eval(this.equation);
+                this.points[i][j].coordinates = [x, y, z];
+
               }
             }
           }
@@ -281,7 +317,14 @@ Equation.prototype = {
       this.surfaces[i].draw();
     }
   },
-  detect_asymptotes: function detect_asymptotes() {
-    
+  generate_google_link: function generate_google_link() {
+    if (!(this.equation instanceof Array)) {
+      var url = "http://www.google.com/search?q=" + encodeURIComponent(this.equation);
+      var element = document.getElementById("google_link");
+      if (element) {
+        element.style.display = '';
+        element.href = url;
+      } 
+    }
   }
 }

@@ -16,9 +16,21 @@
       Point generation for parametric equations will generate values by iterating across the range of u values. For each u, it will iterate across the range of v values. For each u, v pair, it will generate values for x, y, and z using the supplied functions.
       A point will need the following attributes:
       <ul>
-        <li>Coordinates - x, y, z</li>
-        <li>Relations - how to move between points, left, right, forward, backward, what surface it belongs to.</li>
-        <li>Color - points need color, unless surface has a uniform color, then the property can be on the surface.</li>
+        <li>
+          Coordinates - x, y, z
+        </li>
+        <li>
+          Normal - This is a vector x, y, and z that is normal to this point.
+        </li>
+      </ul>
+      A point will need the following functions:
+      <ul>
+        <li>
+          Cross - This will take two points as arguments and create vector's from this point to each of the other vectors, and then take the cross product. This is used in the Equation's Generate Normal's function.
+        </li>
+        <li>
+          Vector - This will take one point as an argument and create a vector from this point to the other point. This is used in the Cross function.
+        </li>
       </ul>
     </p>
   </body>

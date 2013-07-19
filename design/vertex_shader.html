@@ -10,7 +10,33 @@
     </p>
     <h2>Descriptions:</h2>
     <p>
-      This will be writen in GLSL. This sets up the vertexes with properties required for rendering.
+      This will be writen in GLSL. This sets up the vertexes with properties required for rendering. It will caclulate color and lighting values that are passed to the fragment shader. This will need the following properties:
+      <ul>
+        <li>
+          Vertex Position - This is passed in as a bound buffer object. WebGL will automatically iterate through the buffer array.
+        </li>
+        <li>
+          Vertex Normal - This is passed in as a bound buffer object. WebGL will automatically iterate through the buffer array.
+        </li>
+        <li>
+          Translation Matrix - This is passed in with other uniform data. This is generated from a transformation matrix.
+        </li>
+        <li>
+          Perspective Matrix - This is passed in with other uniform data. This is generated from a perspective matrix.
+        </li>
+        <li>
+          Translation Normal Matrix - This is passed in with other uniform data. This is generated from a transformation matrix.
+        </li>
+        <li>
+          Ambient Light Color - This is passed in with other uniform data. This is set in the form data.
+        </li>
+        <li>
+          Directional Light Color - This is passed in with other uniform data. This is set in the form data.
+        </li>
+        <li>
+          Directional Light Direction - This is passed in with other uniform data. This is set in the form data.
+        </li>
+      </ul>
     </p>
   </body>
 </html>

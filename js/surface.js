@@ -41,8 +41,8 @@ Surface.prototype = {
           // vertices = [];
           // normals = [];
           // count = 0;
-          if (!first) {
-            next = true;
+          if (!first && count > 0) {
+            push = true;
           }
         }
         if ( this.points[i+1][j] instanceof Point && this.points[i+1][j].coordinates[2] >= -10 && this.points[i+1][j].coordinates[2] <= 10 ) {
@@ -69,7 +69,7 @@ Surface.prototype = {
           // vertices = [];
           // normals = [];
           // count = 0;
-          if (!first) {
+          if (!first && count > 0) {
             push = true;
           }
         }
@@ -94,7 +94,9 @@ Surface.prototype = {
           push = false;
           first = true;
         }
-        first = false;
+        else if (count > 0 ){
+          first = false;
+        }
       }
       if ( count > 2 ) {
         vertex_buffer = gl.createBuffer();

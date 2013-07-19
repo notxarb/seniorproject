@@ -14,14 +14,30 @@
       This is where the function(s) that define the graph would be.
       This will nned to have the following attributes:
       <ul>
-        <li>Equation</li>
+        <li>
+          Equation
+        </li>
       </ul>
-      The equation would potentially have several surfaces. Equations will need to have the following functions:
+      Equations will need to have the following functions:
       <ul>
-        <li>Asymptote detection - This will determine how many surfaces the equation will need to have.</li>
-        <li>Point generation - This would be a good place for the points to be created, and then sorted out into surfaces as the asymptote detection decides.</li>
-        <li>Surface generation - This create the surfaces and determine which points belong.</li>
-        <li>Draw - This will call draw on each surface associated to this equation.</li>
+        <li>
+          Generate Points - This will detect if the equation is a single equation or if it's an array of equations. If it's a single equation it is an implicit equation and it will iterate across both x and y ranges in a nested manner in order to generate values for z resulting with a two dimensional array of points. If it has an array of equations, it will be a parametric graph and will iterate across u and v ranges in a nested manner in order to generate values for x, y and z resulting with a two dimensional array of points.
+        </li>
+        <li>
+          Generate Normals - This will iterate through the points and pass neighboring points in to the points cross function. It will take the average of the cross products and set that as the normal for the point.
+        </li>
+        <li>
+          Smooth Edges - This function will iterate through the points and find ones that have an empty spot for a neighbor. The ones that are missing a neighbor will be adjusted toward the gap to see if it might be closer to a boundry. If a value that is closer to the boundry is found, it will set the point to that value.
+        </li>
+        <li>
+          Surface generation - This will create the surfaces and pass the points into it.
+        </li>
+        <li>
+          Draw - This will call draw on each surface associated to this equation.
+        </li>
+        <li>
+          Generate Google Link - This is to make testing easier. Makes a link to search the equation on Google, making sure to safely URI encode the equation.
+        </li>
       </ul>
       This will also need to know if the equation is implicit or parametric, and have either a single equation for z, or have an equation for each x, y, and z.
       It will need references to its generated points, and surfaces.

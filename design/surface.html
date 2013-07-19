@@ -13,9 +13,12 @@
       This will have a reference to a subset of the points. This will be able to generate points for drawing to WebGL.
       This will need the following functions:
       <ul>
-        <li>Initial WebGL buffers - This is to store the points in WebGL for usage.</li>
-        <li>Insert points into buffers</li>
-        <li>Draw - This is to draw the surface</li>
+        <li>
+          Initialize Buffers - This is to store the points in WebGL for usage. This function will iterate through the array of points and generate a set of triangle strips. This will also determine empty space in the graph, and asymptotes and generate the graphs around them.
+        </li>
+        <li>
+          Draw - This is to draw the surface. This will have to call the set uniform data, and bind buffers into WebGL.
+        </li>
       </ul>
     </p>
   </body>

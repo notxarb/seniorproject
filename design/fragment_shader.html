@@ -9,8 +9,17 @@
     <p>
     </p>
     <h2>Descriptions:</h2>
-      This will be written in GLSL. This takes care of properties of actual pixels.
     <p>
+      This will be written in GLSL. This determines the actual color of the pixel. This is done by multiplying the desired color with a lighting factor.
+      This will need the following properties set by the vertex shader:
+      <ul>
+        <li>
+          Color - This is the desired color for the pixel as if the light were at 100 percent on it.
+        </li>
+        <li>
+          Light wighting - This is how much light is actually hitting the pixel.
+        </li>
+      </ul>
     </p>
   </body>
 </html>

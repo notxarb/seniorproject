@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <title>Braxton's Senior Project - Design Documents</title>
+    <script type="text/javascript" src="/js/navagation.js"></script>
+  </head>
+  <body>
+    <h1>Directional Lighing</h1>
+    <h2>Definitions:</h2>
+      Directional Lighting - Parallel light beams that share a common vector for direction.
+    <p>
+    </p>
+    <h2>Descriptions:</h2>
+    <p>
+      This will hold data to be pulled into the vertex shader. It will need to have the following property.
+      <ul>
+        <li>
+          Color - An array holding floating point values representing red, green, and blue.
+          Vector - An array holding floating point values representing x, y, and z components of a vector.
+        </li>
+      </ul>
+      This will need the following function:
+      <ul>
+        <li>
+          Unit Vector - This will take the value in vector and calculate a unit vector for it. This is used when passing in the light direction to the vertex shader.
+        </li>
+      </ul>
+    </p>
+  </body>
+</html>

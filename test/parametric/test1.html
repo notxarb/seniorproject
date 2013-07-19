@@ -17,6 +17,7 @@
       <canvas id="canvas" width="500" height="500">
       </canvas>
     </div>
+    <a style="display: none;" id="google_link">See it on Google</a>
     <div class="settings">
       <h3 onclick="toggle_display('rotation_settings')">Rotation Settings</h3>
       <div id="rotation_settings" class="rotation">
@@ -131,15 +132,15 @@
         <label for="directional_lighting_x">
           Direction - X:
         </label>
-        <input type="text" id="directional_lighting_x" value="0" onblur="update_directional_lighing();" />
+        <input type="text" id="directional_lighting_x" value="0.1" onblur="update_directional_lighing();" />
         <label for="directional_lighting_y">
           Y:
         </label>
-        <input type="text" id="directional_lighting_y" value="0" onblur="update_directional_lighing();" />
+        <input type="text" id="directional_lighting_y" value="0.1" onblur="update_directional_lighing();" />
         <label for="directional_lighting_z">
           Z:
         </label>
-        <input type="text" id="directional_lighting_z" value="1" onblur="update_directional_lighing();" />
+        <input type="text" id="directional_lighting_z" value="1.0" onblur="update_directional_lighing();" />
         <br>
       </div>
     </div>

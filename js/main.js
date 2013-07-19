@@ -172,10 +172,6 @@ function update_directional_lighing() {
   equation.draw();
 }
 
-function update_bounds() {
-  equation.draw();
-}
-
 function set_matrix_uniforms() {
   gl.uniformMatrix4fv(shader_program.pMatrixUniform, false, p_matrix.to_p_matrix());
   gl.uniformMatrix4fv(shader_program.mvMatrixUniform, false, mv_matrix.to_mv_matrix());

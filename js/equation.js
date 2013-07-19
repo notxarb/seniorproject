@@ -319,7 +319,7 @@ Equation.prototype = {
   },
   generate_google_link: function generate_google_link() {
     if (!(this.equation instanceof Array)) {
-      var url = "http://www.google.com/search?q=" + encodeURIComponent(this.equation);
+      var url = "http://www.google.com/search?q=" + encodeURIComponent("z = " + this.equation.replace("Math.", ""));
       var element = document.getElementById("google_link");
       if (element) {
         element.style.display = '';

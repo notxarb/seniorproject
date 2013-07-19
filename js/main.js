@@ -4,7 +4,7 @@ var p_matrix;
 var ambient_light;
 var directional_light;
 
-var shaderProgram;
+var shader_program;
 
 var equation;
 
@@ -26,13 +26,13 @@ function initialize_canvas() {
   } catch (e) {
   }
   if (!gl) {
-    alert("Could not initialise WebGL, sorry :-(");
+    alert("WebGL isn't working");
   }
 
   gl.clearColor(0.0, 0.0, 0.0, 1.0);
   gl.enable(gl.DEPTH_TEST);
 
-  initShaders();
+  initialize_shaders();
 }
 
 function initialize_mv_matrix() {
@@ -74,6 +74,58 @@ function initialize_directional_light() {
 
   directional_light = new DirectionalLight(r, g, b, x, y, z);
 }
+
+function get_shader(id) {
+  var shader_script = new XMLHttpRequest();
+  shader_script.open("GET", "/glsl/" + id + ".glsl", false);
+  shader_script.send();
+
+  var shader;
+  if (id == "fragment") {
+    shader = gl.createShader(gl.FRAGMENT_SHADER);
+  }
+  if (id == "vertex") {
+    shader = gl.createShader(gl.VERTEX_SHADER);
+  }
+
+  gl.shaderSource(shader, shader_script.responseText);
+  gl.compileShader(shader);
+
+  if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+    alert(gl.getShaderInfoLog(shader));
+  }
+
+  return (shader) ? shader : null;
+}
+
+function initialize_shaders() {
+  var fragment_shader = get_shader("fragment");
+  var vertex_shader = get_shader("vertex");
+
+  shader_program = gl.createProgram();
+  gl.attachShader(shader_program, vertex_shader);
+  gl.attachShader(shader_program, fragment_shader);
+  gl.linkProgram(shader_program);
+
+  if (!gl.getProgramParameter(shader_program, gl.LINK_STATUS)) {
+    alert("Could not initialise shaders");
+  }
+
+  gl.useProgram(shader_program);
+
+  shader_program.vertexPositionAttribute = gl.getAttribLocation(shader_program, "aVertexPosition");
+  gl.enableVertexAttribArray(shader_program.vertexPositionAttribute);
+  shader_program.vertexNormalAttribute = gl.getAttribLocation(shader_program, "aVertexNormal");
+  gl.enableVertexAttribArray(shader_program.vertexNormalAttribute);
+
+  shader_program.pMatrixUniform = gl.getUniformLocation(shader_program, "uPMatrix");
+  shader_program.mvMatrixUniform = gl.getUniformLocation(shader_program, "uMVMatrix");
+  shader_program.nMatrixUniform = gl.getUniformLocation(shader_program, "uNMatrix");
+  shader_program.ambientColorUniform = gl.getUniformLocation(shader_program, "uAmbientColor");
+  shader_program.lightingDirectionUniform = gl.getUniformLocation(shader_program, "uLightingDirection");
+  shader_program.directionalColorUniform = gl.getUniformLocation(shader_program, "uDirectionalColor");
+}
+
 
 function update_transformation_matrix() {
   var x_rotation = parseFloat(document.getElementById("x_rotation").value);
@@ -125,10 +177,35 @@ function update_bounds() {
 }
 
 function set_matrix_uniforms() {
-  gl.uniformMatrix4fv(shaderProgram.pMatrixUniform, false, p_matrix.to_p_matrix());
-  gl.uniformMatrix4fv(shaderProgram.mvMatrixUniform, false, mv_matrix.to_mv_matrix());
-  gl.uniformMatrix3fv(shaderProgram.nMatrixUniform, false, mv_matrix.to_normal_matrix());
-  gl.uniform3fv(shaderProgram.ambientColorUniform, ambient_light.color);
-  gl.uniform3fv(shaderProgram.lightingDirectionUniform, directional_light.unit_vector());
-  gl.uniform3fv(shaderProgram.directionalColorUniform, directional_light.color);
+  gl.uniformMatrix4fv(shader_program.pMatrixUniform, false, p_matrix.to_p_matrix());
+  gl.uniformMatrix4fv(shader_program.mvMatrixUniform, false, mv_matrix.to_mv_matrix());
+  gl.uniformMatrix3fv(shader_program.nMatrixUniform, false, mv_matrix.to_normal_matrix());
+  gl.uniform3fv(shader_program.ambientColorUniform, ambient_light.color);
+  gl.uniform3fv(shader_program.lightingDirectionUniform, directional_light.unit_vector());
+  gl.uniform3fv(shader_program.directionalColorUniform, directional_light.color);
 }
+
+var autorotate = window.setInterval( function() {
+    x_rotation = parseFloat(document.getElementById("x_rotation").value);
+    y_rotation = parseFloat(document.getElementById("y_rotation").value);
+    z_rotation = parseFloat(document.getElementById("z_rotation").value);
+    if (x_rotation < 6.28) {
+      x_rotation += 0.04;
+      document.getElementById("x_rotation").value = x_rotation;
+    }
+    else if (y_rotation < 6.28) {
+      y_rotation += 0.04;
+      document.getElementById("y_rotation").value = y_rotation;
+    }
+    else if (z_rotation < 6.28) {
+      z_rotation += 0.04;
+      document.getElementById("z_rotation").value = z_rotation;
+    }
+    else
+    {
+      window.clearInterval(autorotate);
+    }
+    update_transformation_matrix();
+  },
+  40
+);

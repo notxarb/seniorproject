@@ -1,0 +1,17 @@
+Wecome to the senior project of Braxton Huggins.
+
+Here is a list of directories and what you will find there:
+
+css - This is where the css for the site goes. It currently doesn't have any
+      real css.
+design - This is where to find the requirements and design documentation.
+glsl - This is where the vertex and fragment shaders are.
+js - All the JavaScript.
+prototype - This is where I was first playing around with code.
+test - This is where I set up tests for asymptotic, implicit, and parametric
+       equations
+
+The js folder has a few javascript files. In order to make 3 dimensional
+graphs, you will need to include all except for navagation.js in your HTML 
+document. The navagation.js has a helper function for making a row in a table
+act as a link. 
